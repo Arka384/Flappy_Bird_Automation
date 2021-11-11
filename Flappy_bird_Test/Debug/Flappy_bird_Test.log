@@ -1,0 +1,7 @@
+﻿  Bird.cpp
+c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\bird.cpp(39): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Flappy_bird_Test.vcxproj -> C:\Users\arkad\Documents\DEADSHOT FILES\C++ Programs\SFML\TESTS\Flappy_bird_Test\Debug\Flappy_bird_Test.exe

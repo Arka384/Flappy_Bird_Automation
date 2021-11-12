@@ -7,13 +7,16 @@ int main()
 	sf::Vector2i WindowSize = sf::Vector2i(550, 600);
 	sf::RenderWindow window(sf::VideoMode(WindowSize.x, WindowSize.y), "Test", sf::Style::Close);
 	window.setVerticalSyncEnabled(true);
+	srand(time(NULL));
 	sf::Clock clk;
 	sf::Time time;
 	float dt = 0.f;
+	int State = 0, prevState = 0;
+	bool mousePressed = false;
 
 	Bird bird(WindowSize);
 	Ui ui(WindowSize);
-	Pipe pipe(WindowSize);
+	Pipe pipe(WindowSize, ui.getGroundSpeed());
 
 	while (window.isOpen())
 	{
@@ -24,26 +27,52 @@ int main()
 		while (window.pollEvent(e)) {
 			if (e.type == sf::Event::Closed)
 				window.close();
+			if (e.type == sf::Event::MouseButtonPressed)
+				mousePressed = true;
+			if (e.type == sf::Event::MouseButtonReleased)
+				mousePressed = false;
 		}
 		////////////////////////
 
-
-
-		if (!bird.is_dead()) {
-			pipe.generate(dt);
-			pipe.update(dt);
-			bird.update(dt, pipe.pipes);
-			ui.update(dt);
+		if (State == 0 || State == 2) {
+			if (mousePressed) {
+				mousePressed = false;
+				if (State == 0)
+					State = 1;
+				else
+					State = 0;
+					
+				bird.reset();
+				ui.reset();
+				pipe.reset(ui.getGroundSpeed());
+				bird.set_alive();
+			}
 		}
-			
 
+		if (State == 1) {
+			pipe.generate(dt);
+			pipe.update(dt, bird.getScore());
+			bird.update(dt, pipe.pipes);
+			ui.update(dt, bird.getScore());
+
+			if (bird.is_dead())
+				State = 2;
+		}
 
 
 		////////////////////////
 		window.clear();
-		ui.render(window);
+
+		ui.render_bg(window);
+		if (State == 0)
+			ui.render_startImg(window);
 		pipe.render(window);
-		window.draw(bird.bird);
+		if(State != 0)
+			ui.render_score(window);
+		ui.render_ground(window);
+		bird.render_bird(window);
+		if (State == 2)
+			ui.render_gameover(window);
 		window.display();
 	}
 }

@@ -47,7 +47,7 @@ void Ui::update(float dt, int score, float spawnTime)
 	ss << score;
 	Score.setString(ss.str());
 
-	if ((score - prevScore == 5) && spawnTime > 0.8f) {
+	if ((score - prevScore == 1) && spawnTime > 0.8f) {
 		prevScore = score;
 		groundScrollSpeed += 40;
 		backgroundScrollSpeed += 10;

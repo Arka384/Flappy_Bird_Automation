@@ -49,7 +49,7 @@ void Pipe::generate(float dt)
 
 void Pipe::update(float dt, int score)
 {
-	if ((score - prevScore == 5) && spawnTime > 0.8f) {
+	if ((score - prevScore == 1) && spawnTime > 0.8f) {
 		prevScore = score;
 		scrollSpeed += 40;
 		spawnTime -= (dt * score)*5;

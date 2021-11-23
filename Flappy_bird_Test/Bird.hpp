@@ -11,6 +11,7 @@ private:
 	sf::Vector2i WindowSize;
 	sf::Sound jump, gameover, scored;
 	sf::SoundBuffer jumpBuf, gameoverBuf, scoredBuf;
+	sf::RectangleShape line1, line2, line3, line4;
 	float gravity = 30, jumpforce = 500.f;
 	float velocity_Y = 0.f;
 	sf::Vector2f pos, birdSize;
@@ -26,6 +27,7 @@ public:
 	int getScore(void);
 	void reset(void);
 	void update(float, std::vector<std::pair<sf::Sprite, bool>> &);
+	void testFunction(float, std::vector<std::pair<sf::Sprite, bool>> &, sf::Texture &, float );
 	void render_bird(sf::RenderWindow &);
 };
 

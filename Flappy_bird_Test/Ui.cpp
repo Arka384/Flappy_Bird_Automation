@@ -41,13 +41,13 @@ Ui::Ui(sf::Vector2i size)
 	ground[1].setPosition(ground[0].getGlobalBounds().width, groundY);
 }
 
-void Ui::update(float dt, int score)
+void Ui::update(float dt, int score, float spawnTime)
 {
 	std::stringstream ss;
 	ss << score;
 	Score.setString(ss.str());
 
-	if (score - prevScore == 5) {
+	if ((score - prevScore == 5) && spawnTime > 0.8f) {
 		prevScore = score;
 		groundScrollSpeed += 40;
 		backgroundScrollSpeed += 10;

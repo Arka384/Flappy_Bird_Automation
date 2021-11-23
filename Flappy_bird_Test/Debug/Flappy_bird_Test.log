@@ -1,14 +1,16 @@
-﻿  Pipe.cpp
-c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\pipe.cpp(24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\pipe.cpp(25): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  Bird.cpp
+c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\bird.cpp(27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\bird.cpp(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\bird.cpp(95): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\bird.cpp(119): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\pipe.cpp(29): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\pipe.cpp(56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\bird.cpp(139): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\arkad\documents\deadshot files\c++ programs\sfml\tests\flappy_bird_test\flappy_bird_test\bird.cpp(148): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Flappy_bird_Test.vcxproj -> C:\Users\arkad\Documents\DEADSHOT FILES\C++ Programs\SFML\TESTS\Flappy_bird_Test\Debug\Flappy_bird_Test.exe

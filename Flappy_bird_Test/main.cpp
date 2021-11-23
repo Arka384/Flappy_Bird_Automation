@@ -1,3 +1,10 @@
+/*
+	This is flappy bird clone with both normal mode and automatic mode.
+
+	While playing press 'a' to turn on auto mode.
+	Once in auto mode it can keep going forever. Your patience will then determine the highest score :-D
+*/
+
 #include "Bird.hpp"
 #include "Ui.hpp"
 #include "Pipe.hpp"
@@ -12,7 +19,7 @@ int main()
 	sf::Time time;
 	float dt = 0.f;
 	int State = 0, prevState = 0;
-	bool mousePressed = false;
+	bool mousePressed = false, autoMode = false;
 
 	Bird bird(WindowSize);
 	Ui ui(WindowSize);
@@ -25,12 +32,23 @@ int main()
 
 		sf::Event e;
 		while (window.pollEvent(e)) {
-			if (e.type == sf::Event::Closed)
+			switch (e.type)
+			{
+			case sf::Event::Closed:
 				window.close();
-			if (e.type == sf::Event::MouseButtonPressed)
+			case sf::Event::MouseButtonPressed:
 				mousePressed = true;
-			if (e.type == sf::Event::MouseButtonReleased)
+				break;
+			case sf::Event::MouseButtonReleased:
 				mousePressed = false;
+				break;
+			case sf::Event::KeyPressed:
+				if (e.key.code == sf::Keyboard::A)
+					autoMode = true;
+				break;
+			default:
+				break;
+			}
 		}
 		////////////////////////
 
@@ -46,6 +64,7 @@ int main()
 				ui.reset();
 				pipe.reset(ui.getGroundSpeed());
 				bird.set_alive();
+				autoMode = false;
 			}
 		}
 
@@ -53,7 +72,9 @@ int main()
 			pipe.generate(dt);
 			pipe.update(dt, bird.getScore());
 			bird.update(dt, pipe.pipes);
-			ui.update(dt, bird.getScore());
+			if(autoMode)
+				bird.testFunction(dt, pipe.pipes, pipe.pipeTexDown, pipe.getGap());
+			ui.update(dt, bird.getScore(), pipe.getSpawnTime());
 
 			if (bird.is_dead())
 				State = 2;

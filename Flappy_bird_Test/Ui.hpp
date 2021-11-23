@@ -18,7 +18,7 @@ private:
 public:
 	Ui();
 	Ui(sf::Vector2i );
-	void update(float, int );
+	void update(float, int ,float);
 	void reset(void);
 	int getGroundSpeed(void);
 	void render_bg(sf::RenderWindow &);

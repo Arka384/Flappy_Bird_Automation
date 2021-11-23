@@ -25,6 +25,12 @@ Bird::Bird(sf::Vector2i size)
 	birdSize.y = bird.getGlobalBounds().height/2;
 	bird.setOrigin(birdSize.x / 2, birdSize.y / 2);
 	bird.setPosition(WindowSize.x / 2 - 200, WindowSize.y / 2 - birdSize.y);
+
+	//line1.setFillColor(sf::Color::Red);
+	line2.setFillColor(sf::Color::Magenta);
+	line3.setFillColor(sf::Color::Red);
+	line4.setFillColor(sf::Color::Blue);
+
 }
 
 bool Bird::is_dead(void)
@@ -65,6 +71,7 @@ void Bird::update(float dt, std::vector<std::pair<sf::Sprite, bool>> &pipes)
 	else
 		velocity_Y += gravity * dt;
 
+
 	if (velocity_Y <= 0) {
 		bird.setTexture(birdTex[2]);
 		bird.setRotation(-10.f);
@@ -97,7 +104,8 @@ void Bird::update(float dt, std::vector<std::pair<sf::Sprite, bool>> &pipes)
 		}
 
 		if (pos.x > i->first.getPosition().x + i->first.getGlobalBounds().width && i->second == false) {
-			scored.play();
+			if(scored.getStatus() != sf::Sound::Playing)
+				scored.play();
 			tempScore++;
 			i->second = true;
 		}
@@ -105,8 +113,58 @@ void Bird::update(float dt, std::vector<std::pair<sf::Sprite, bool>> &pipes)
 	Score = tempScore / 2;
 }
 
+//this is the function
+void Bird::testFunction(float dt, std::vector<std::pair<sf::Sprite, bool>> &pipes, sf::Texture &pipeTex, float gap)
+{
+	float nearX = WindowSize.x, nearY = 0;
+
+	for (auto i = pipes.begin(); i != pipes.end(); i++) {
+		if (i->second || i->first.getTexture() == &pipeTex)
+			continue;
+
+		float x = fabs(pos.x - i->first.getPosition().x);
+		if (x < nearX) {
+			nearY = fabs(i->first.getPosition().y - pos.y + birdSize.y*5);
+			nearX = x;
+
+			i->first.setColor(sf::Color::Red);
+			//line1.setPosition(pos);
+			//line1.setSize(sf::Vector2f(x, 2));
+			line2.setPosition(pos);
+			line2.setSize(sf::Vector2f(2, nearY - birdSize.y * 5));
+
+			float y = fabs(i->first.getPosition().y - pos.y + birdSize.y/2);
+			float dist = std::sqrt(pow(nearX, 2) + pow(y, 2));
+			float angle = std::atan2(y, nearX);
+			angle = (angle) *(180 / 3.1415);
+			line3.setRotation(angle);
+			line3.setSize(sf::Vector2f(dist, 2));
+			line3.setPosition(pos);
+
+			float y2 = fabs((i-1)->first.getPosition().y + (i-1)->first.getGlobalBounds().height - pos.y + birdSize.y / 2);
+			float dist2 = std::sqrt(pow(nearX, 2) + pow(y2, 2));
+			float angle2 = std::atan2(y2, nearX);
+			angle2 = (angle2) *(180 / 3.1415);
+			line4.setSize(sf::Vector2f(dist2, 2));
+			line4.setRotation(-angle2);
+			line4.setPosition(pos);
+		}
+
+		if (nearY < (gap) && velocity_Y >= 0) {
+			jump.play();
+			velocity_Y = 0;
+			velocity_Y -= jumpforce * dt;
+		}
+	}
+}
+
 void Bird::render_bird(sf::RenderWindow &window)
 {
+	//window.draw(line1);
+	window.draw(line2);
+	window.draw(line3);
+	window.draw(line4);
+
 	window.draw(bird);
 }
 
